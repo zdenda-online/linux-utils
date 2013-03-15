@@ -18,10 +18,16 @@ if [[ -z "$1" ]]; then
 fi
 
 ACTUAl_JDK_PATH=`ls -l $BIN_DIR/java | awk '{print $11}' | sed 's:\/jre\/bin\/java::g'`
-echo "Actual JDK path in symlinks is $ACTUAl_JDK_PATH"
+echo "Actual JDK path used by symlinks is: $ACTUAl_JDK_PATH"
 
 NEW_JDK_PATH=`echo ${1%/}` # remove last slash if needed
-echo "New JDK path in symlinks will be $NEW_JDK_PATH"
+echo "New JDK path for symlinks will be: $NEW_JDK_PATH"
+
+read -p "Are suggested JDK paths correct? (y/n) " yn
+if [ "$yn" != "y" ]; then
+  echo "Cancelled on user request"
+  exit
+fi
 
 echo "---------------------------------------"
 
@@ -32,7 +38,6 @@ do
   FILENAME=`echo $file | awk '{print $9}'`
   SYMLINK=`echo $file | awk '{print $11}'`
   
-  #NEWLINK=`echo $SYMLINK | sed "s/[$ACTUAl_JDK_PATH]/[$1]/g"`
   ACT=`echo $ACTUAl_JDK_PATH | sed 's:\/:\\\/:g'` # escape characters for SED
   NEW=`echo $NEW_JDK_PATH | sed 's:\/:\\\/:g'` # escape characters for SED
   
