@@ -44,7 +44,13 @@ do
   NEW=`echo $NEW_JDK_PATH | sed 's:\/:\\\/:g'` # escape characters for SED
   
   NEWLINK=`echo $SYMLINK | sed "s/$ACT/$NEW/g"`
-  echo "-> Replacing symlink: $BIN_DIR/$FILENAME -> $NEWLINK"
-  rm $BIN_DIR/$FILENAME
-  ln -s  $NEWLINK $BIN_DIR/$FILENAME
+  
+  if [ -f $NEWLINK ]; then
+    echo "-> Replacing symlink: $BIN_DIR/$FILENAME -> $NEWLINK"
+    rm $BIN_DIR/$FILENAME
+    ln -s  $NEWLINK $BIN_DIR/$FILENAME    
+  else
+    echo "!! File $NEWLINK does not exist, skipping symlink re-creation"
+  fi
+  
 done
