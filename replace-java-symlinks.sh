@@ -3,7 +3,7 @@
 # and replaces every symlink with a new one that has the JDK path set from the first script argument.
 #
 # Useful if you want to switch symlinks from OpenJDK to any other JDK.
-# E.g. ./replace-java-symlinks /opt/java6
+# E.g. ./replace-java-symlinks.sh /opt/java6
 #
 # author: Zdenek Obst, zdenek.obst-at-gmail.com
 

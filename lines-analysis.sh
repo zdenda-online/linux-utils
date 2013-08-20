@@ -2,7 +2,7 @@
 # This script searches the files in directory (first arg) which match specified wildcard (second arg).
 # Third arg is the limit of lines count for files which should be printed (added to analysis).
 #
-# E.g. ./lines-analysis /path/to/project "*.java" 500
+# E.g. ./lines-analysis.sh /path/to/project "*.java" 500
 #
 # author: Zdenek Obst, zdenek.obst-at-gmail.com
 
