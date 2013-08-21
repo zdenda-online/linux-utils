@@ -10,20 +10,27 @@ CWD=`dirname $0`
 
 # include any other patterns with colors in this associative array
 declare -A color
-color[" FATAL "]="\033[0;91m" 	# red
-color[" ERROR "]="\033[0;91m" 	# red
-color[" SEVERE "]="\033[0;91m"
-color[" WARN "]="\033[0;93m" 	# yellow
-color[" INFO "]="\033[0;97m" 	# white
-color[" DEBUG "]="\033[0;92m" 	# green
-color[" FINE "]="\033[0;92m"
-color[" TRACE "]="\033[0;94m" 	# light blue
-color[" FINER "]="\033[0;94m"
-color[" FINEST "]="\033[0;94m" 
+color["FATAL"]="\033[1;91m" 	# red
+color["ERROR"]="\033[1;91m"
+color["SEVERE"]="\033[1;91m"
+#color["Caused by:"]="\033[1;91m"
+#color["at"]="\033[1;91m"
+
+color["WARN"]="\033[1;93m" 	# yellow
+
+color["INFO"]="\033[1;97m" 	# white
+
+color["DEBUG"]="\033[1;92m" 	# green
+color["FINE"]="\033[1;92m"
+
+color["TRACE"]="\033[1;94m" 	# light blue
+color["FINER"]="\033[1;94m"
+color["FINEST"]="\033[1;94m" 
 
 AWK_EXPR=""
-for i in "${!color[@]}"; do
-  AWK_EXPR="/$i/ {print \"${color[$i]}\" \$0 \"\033[39m\"} $AWK_EXPR"
+for i in "${!color[@]}"; do  
+  AWK_EXPR="$AWK_EXPR /\s+$i\s+/ { print \"${color[$i]}\" \$0; next }"
 done
+AWK_EXPR="$AWK_EXPR / / { print \$0; }"
 
 tail "$@" | awk "$AWK_EXPR"
