@@ -8,29 +8,34 @@
 
 CWD=`dirname $0`
 
-# include any other patterns with colors in this associative array
+RED="\033[0;91m"
+GREEN="\033[0;92m"
+YELLOW="\033[0;93m"
+BLUE="\033[0;94m"
+MAGENT="\033[0;95m"
+CYAN="\033[0;96m"
+WHITE="\033[0;97m"
+GRAY="\033[0;37m"
+
+# include any other colors in this associative array (index = regex pattern)
 declare -A color
-color["FATAL"]="\033[1;91m" 	# red
-color["ERROR"]="\033[1;91m"
-color["SEVERE"]="\033[1;91m"
-#color["Caused by:"]="\033[1;91m"
-#color["at"]="\033[1;91m"
-
-color["WARN"]="\033[1;93m" 	# yellow
-
-color["INFO"]="\033[1;97m" 	# white
-
-color["DEBUG"]="\033[1;92m" 	# green
-color["FINE"]="\033[1;92m"
-
-color["TRACE"]="\033[1;94m" 	# light blue
-color["FINER"]="\033[1;94m"
-color["FINEST"]="\033[1;94m" 
+color["FATAL"]=$RED
+color["ERROR"]=$RED
+color["SEVERE"]=$RED
+#color["Caused by:"]=$RED
+#color["at"]=$RED
+color["WARN"]=$YELLOW
+color["INFO"]=$WHITE
+color["DEBUG"]=$GRAY
+color["TRACE"]=$GRAY
+color["FINE"]=$GRAY
+color["FINER"]=$GRAY
+color["FINEST"]=$GRAY
 
 AWK_EXPR=""
 for i in "${!color[@]}"; do  
   AWK_EXPR="$AWK_EXPR /\s+$i\s+/ { print \"${color[$i]}\" \$0; next }"
 done
-AWK_EXPR="$AWK_EXPR / / { print \$0; }"
+AWK_EXPR="$AWK_EXPR / / { print \$0; }" # if no match found, do NOT change color
 
 tail "$@" | awk "$AWK_EXPR"
