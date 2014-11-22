@@ -1,8 +1,8 @@
 #!/bin/bash
 # This simple script that colors up the logs (typically java logs). 
 # It uses tail as the primary tool. You can pass arguments in the same manner as for tail.
-# E.g. 	./logs-tail.sh -F /home/xyz/mylog.txt (monitoring file with follow)
-# or 	./logs-tail.sh -20 /home/xyz/mylog.txt (last 20 lines)
+# Example #1: ./logs-tail.sh -F /home/xyz/mylog.txt (monitoring file with follow)
+# Example #2: ./logs-tail.sh -20 /home/xyz/mylog.txt (last 20 lines)
 #
 # author: Zdenek Obst, zdenek.obst-at-gmail.com
 
